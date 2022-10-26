@@ -14,7 +14,7 @@ const sequelize = require('./config/connection');
 const helpers = require('./utils/helpers')
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3040;
 
 //
 const sess = {
@@ -44,7 +44,7 @@ app.set('view engine', 'handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(routes)
+app.use(routes);
 app.use(express.static(path.join(__dirname, 'public')));
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => {
