@@ -1,9 +1,13 @@
 const User = require('../models/User');
 
 const router = require('express').Router();
-// const apiRoutes = require('./api');
-// const homeRoutes = require('./homeRoutes')
 
+const userRoutes = require('./user-routes');
+// const postRoutes = require('./post-routes');
+// const apiRoutes = require('./api');
+
+router.use('/user', userRoutes);
+// router.use('/post', postRoutes);
 
 //need index in the PAI folder to get this to work
 // router.use('/', homeRoutes)
@@ -18,12 +22,12 @@ router.get('/', async (req, res) => {
     res.render('homepage')
 })
 
-router.post('/', async (req, res) => {
-    const userData = await User.findAll()
-    const users = userData.map((user) => user.get({ plain: true })
-    )
-    res.render('homepage', {
-        users
-    })
-})
+// router.post('/', async (req, res) => {
+//     const userData = await User.findAll()
+//     const users = userData.map((user) => user.get({ plain: true })
+//     )
+//     res.render('homepage', {
+//         users
+//     })
+// })
 module.exports = router;
