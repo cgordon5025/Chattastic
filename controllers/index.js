@@ -1,3 +1,5 @@
+const User = require('../models/User');
+
 const router = require('express').Router();
 // const apiRoutes = require('./api');
 // const homeRoutes = require('./homeRoutes')
@@ -17,9 +19,11 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const post = "This is a post request"
+    const userData = await User.findAll()
+    const users = userData.map((user) => user.get({ plain: true })
+    )
     res.render('homepage', {
-        posts
+        users
     })
 })
 module.exports = router;
