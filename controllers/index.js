@@ -1,6 +1,7 @@
-const User = require("../models/User");
-const Channel = require("../models/Channel");
-const Thread = require("../models/Thread");
+const {User, Channel, Thread} = require('../models')
+// const User = require("../models/User");
+// const Channel = require("../models/Channel");
+// const Thread = require("../models/Thread");
 
 const router = require("express").Router();
 
