@@ -18,40 +18,76 @@ router.get("/:id", async (req, res) => {
   try {
     const userIdData = await User.findByPk(req.params.id, {
       // JOIN with Post
-      include: [{model: Post}]
+      include: [{ model: Post }]
     });
 
     if (!userIdData) {
       res.status(404).json({ message: "No user found with this id!" });
       return;
     }
-  } catch (err) {res.status(500).json(err);
- }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-
-router.delete('/:id', async (req, res) => {
-  // delete one user by its `id` value
+//this needs to be post since we don't want to remove the individual from the  database, just end their session
+router.post('/logout', async (req, res) => {
   try {
-      if (req.session.loggedIn) {
-    const deletedUserData = await User.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
+    if (req.session.loggedIn) {
+      req.session.destroy(() => {
+        res.status(204).end()
+      });
+    };
     if (!deletedUserData) {
       res.status(404).json({ message: 'No user found with this id!' });
       return;
     }
     res.status(200).json(deletedUserData);
-  }} catch (err) {
+  } catch (err) {
     res.status(500).json(err);
-}});
+  }
+});
 
-router.post('/', async (req, res) => {
-  // create a new tag
+router.post('/login', async (req, res) => {
   try {
-    const createdUserData = await User.create(req.body);
+    const userData = await User.findOne({ where: { username: req.body.username } });
+    if (!userData) {
+      res.status(404).json({ message: "Login failed please try again!" });
+      return;
+    }
+    const validPassword = await userData.checkPassword(req.body.password);
+
+    if (!validPassword) {
+      res.status(404).json({ message: "Incorrect password, please try again" });
+      return;
+    }
+    req.session.save(() => {
+      req.session.userID = userData.id;
+      req.session.username = userData.username;
+      req.session.loggedIn = true;
+      res.status(200).json({ message: "you are now logged in! YAY" })
+    });
+    console.log(req.session.userID)
+
+  } catch (err) {
+    res.status(500).json(err)
+  }
+})
+
+router.post('/signup', async (req, res) => {
+  try {
+    const createdUserData = await User.create({
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+    });
+    //this sets up the new user information
+    req.session.save(() => {
+      req.session.loggedIn = true;
+      req.session.userID = userData.id;
+      req.session.username = userData.username;
+      res.status(200).json(userData)
+    });
     res.status(200).json(createdUserData);
   } catch (err) {
     res.status(400).json(err);

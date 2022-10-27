@@ -4,7 +4,8 @@ const sequelize = require("../config/connection");
 
 class Thread extends Model {}
 
-Thread.init({
+Thread.init(
+  {
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -19,6 +20,8 @@ Thread.init({
     type: DataTypes.TEXT,
     allowNull: false,
   },
+},
+{
   sequelize,
   timestamps: false,
   freezeTableName: true,
