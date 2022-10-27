@@ -11,6 +11,7 @@ router.get("/", async (req, res) => {
         },
       ],
     });
+    res.status(200).json(thread)
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -27,6 +28,7 @@ router.get("/thread/:id", async (req, res) => {
         },
       ],
     });
+    res.status(200).json(threadData)
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
