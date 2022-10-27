@@ -1,12 +1,16 @@
-const User = require('../models/User');
+const User = require("../models/User");
+const Channel = require("../models/Channel");
+const Thread = require("../models/Thread");
 
-const router = require('express').Router();
+const router = require("express").Router();
 
-const userRoutes = require('./user-routes');
+const userRoutes = require("./user-routes");
+const channelRoute = require("./channelRoute");
+const threadRoute = require("./threadRoute");
 // const postRoutes = require('./post-routes');
 // const apiRoutes = require('./api');
 
-router.use('/user', userRoutes);
+router.use("/user", userRoutes);
 // router.use('/post', postRoutes);
 
 //need index in the PAI folder to get this to work
@@ -17,10 +21,9 @@ router.use('/user', userRoutes);
 //     res.send("<h1>Wrong Route!</h1>")
 // });
 
-
-router.get('/', async (req, res) => {
-    res.render('homepage')
-})
+router.get("/", async (req, res) => {
+  res.render("homepage");
+});
 
 // router.post('/', async (req, res) => {
 //     const userData = await User.findAll()
