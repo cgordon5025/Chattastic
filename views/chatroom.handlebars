@@ -1,0 +1,13 @@
+{{#if user.id == req.session.userID}}
+<ul class="m-3 p-0">
+    {{#each posts as |post|}}
+    {{>post-details}}
+    {{/each}}
+</ul>
+{{else}}
+<ul class="m-3 p-0">
+    {{#each posts as |post|}}
+    {{>post-details}}
+    {{/each}}
+</ul>
+{{/if}}
