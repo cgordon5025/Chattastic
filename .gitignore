@@ -69,8 +69,11 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
+## need two .env to actually make it hidden????
 .env
 .env.test
+.env
+
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
