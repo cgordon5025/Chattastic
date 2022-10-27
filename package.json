@@ -19,6 +19,8 @@
   "homepage": "https://github.com/cgordon5025/Project-2#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "bootstrap": "^3.4.1",
+    "chat-engine": "^0.8.4",
     "connect-session-sequelize": "^7.1.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
