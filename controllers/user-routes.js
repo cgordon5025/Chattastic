@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
   });
 
 router.post('/', async (req, res) => {
-    // create a new tag
+    // create a new user
     try {
       const createdUserData = await User.create(req.body);
       res.status(200).json(createdUserData);
@@ -45,6 +45,7 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     // delete one user by its `id` value
     try {
+        if (req.session.loggedIn) {
       const deletedUserData = await User.destroy({
         where: {
           id: req.params.id,
@@ -55,7 +56,7 @@ router.delete('/:id', async (req, res) => {
         return;
       }
       res.status(200).json(deletedUserData);
-    } catch (err) {
+    }} catch (err) {
       res.status(500).json(err);
   }});
   
