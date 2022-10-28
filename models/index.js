@@ -2,6 +2,7 @@
 const User = require("./User");
 const Channel = require("./Channel");
 const Thread = require("./Thread");
+const Message = require('./Message')
 //Post to be added in later//
 // const Post = require('./Post');
 
@@ -15,5 +16,5 @@ Thread.belongsTo(Channel, {
   foreignKey: "id",
 });
 
-module.exports = { User, Channel, Thread };
+module.exports = { User, Channel, Thread, Message };
 

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Message = require("../../models");
+const { Message } = require("../../models");
 
 router.get("/", async (req, res) => {
   try {
@@ -34,11 +34,13 @@ router.get("/Message/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+//localhost:3040/message
 router.post("/", async (req, res) => {
   // create a new message
   try {
-    const createdMessage = await Message.create(req.body);
+    const createdMessage = await Message.create({
+      text: req.body.text
+    });
     res.status(200).json(createdMessage);
   } catch (err) {
     res.status(400).json(err);
