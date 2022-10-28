@@ -3,6 +3,7 @@ const PubNub = require('pubnub');
 const pubnub = new PubNub({
   publishKey: "",
   subscribeKey: "",
+  // we can use req.body.userid here?
   userId: "myUniqueUserId",
 
   // authKey: "myAuthKey",
@@ -11,14 +12,16 @@ const pubnub = new PubNub({
 // pubnub.getUserId();
 // pubnub.setUserId();
 // pubnub.setAuthKey();
-console.log(pubnub.getUserId());
+// console.log(pubnub.getUserId());
 // pubnub.getUserId(pubnub);
 // getUUID();
 // console.log(getUUID());
 // console.log(pubnub);
-
+// console.log(pubnub.setUserId());
 // add listener
 // makes app display messages as they are received
+
+
 const listener = {
     status: (statusEvent) => {
         if (statusEvent.category === "PNConnectedCategory") {
@@ -30,10 +33,10 @@ const listener = {
     },
     presence: (presenceEvent) => {
         // handle presence
-        
     }
 };
 pubnub.addListener(listener);
+
 
 // publishes a message when publishMessage() is called
 const publishMessage = async (message) => {
@@ -76,78 +79,197 @@ const showMessage = (msg) => {
     console.log("message: " + msg);
 }
 
-pubnub.addListener({
-    // Messages
-    message: function (m) {
-      const channelName = m.channel; // Channel on which the message was published
-      const channelGroup = m.subscription; // Channel group or wildcard subscription match (if exists)
-      const pubTT = m.timetoken; // Publish timetoken
-      const msg = m.message; // Message payload
-      const publisher = m.publisher; // Message publisher
-    },
-    // Presence
-    presence: function (p) {
-      const action = p.action; // Can be join, leave, state-change, or timeout
-      const channelName = p.channel; // Channel to which the message belongs
-      const occupancy = p.occupancy; // Number of users subscribed to the channel
-      const state = p.state; // User state
-      const channelGroup = p.subscription; //  Channel group or wildcard subscription match, if any
-      const publishTime = p.timestamp; // Publish timetoken
-      const timetoken = p.timetoken; // Current timetoken
-      const uuid = p.uuid; // UUIDs of users who are subscribed to the channel
-    },
-    // Signals
-    signal: function (s) {
-      const channelName = s.channel; // Channel to which the signal belongs
-      const channelGroup = s.subscription; // Channel group or wildcard subscription match, if any
-      const pubTT = s.timetoken; // Publish timetoken
-      const msg = s.message; // Payload
-      const publisher = s.publisher; // Message publisher
-    },
-    // Objects
-    objects: (objectEvent) => {
-      const channel = objectEvent.channel; // Channel to which the event belongs
-      const channelGroup = objectEvent.subscription; // Channel group
-      const timetoken = objectEvent.timetoken; // Event timetoken
-      const publisher = objectEvent.publisher; // UUID that made the call
-      const event = objectEvent.event; // Name of the event that occurred
-      const type = objectEvent.type; // Type of the event that occurred
-      const data = objectEvent.data; // Data from the event that occurred
-    },
-    // Message Actions
-    messageAction: function (ma) {
-      const channelName = ma.channel; // Channel to which the message belongs
-      const publisher = ma.publisher; // Message publisher
-      const event = ma.event; // Message action added or removed
-      const type = ma.data.type; // Message action type
-      const value = ma.data.value; // Message action value
-      const messageTimetoken = ma.data.messageTimetoken; // Timetoken of the original message
-      const actionTimetoken = ma.data.actionTimetoken; // Timetoken of the message action
-    },
-    // File actions
-    file: function (event) {
-      const channelName = event.channel; // Channel to which the file belongs
-      const channelGroup = event.subscription; // Channel group or wildcard subscription match (if exists)
-      const publisher = event.publisher; // File publisher
-      const timetoken = event.timetoken; // Event timetoken
-      const message = event.message; // Optional message attached to the file
-      const fileId = event.file.id; // File unique id
-      const fileName = event.file.name;// File name
-      const fileUrl = event.file.url; // File direct URL
-    },
-    status: function (s) {
-      const affectedChannelGroups = s.affectedChannelGroups; // Array of channel groups affected in the operation
-      const affectedChannels = s.affectedChannels; // Array of channels affected in the operation
-      const category = s.category; // Returns PNConnectedCategory
-      const operation = s.operation; // Returns PNSubscribeOperation
-      const lastTimetoken = s.lastTimetoken; // Last timetoken used in the subscribe request (type long)
-      const currentTimetoken = s.currentTimetoken; /* Current timetoken fetched in subscribe response,
-                                                  * to be used in the next request (type long) */
-      const subscribedChannels = s.subscribedChannels; // Array of all currently subscribed channels
-    },
-  });
 
-  pubnub.channelGroups.addChannels({
-    channels: Array<string>,
-    channelGroup: string
-})
+// Publish message to channel. Do we want to say successful/unsuccessful?
+const publishMessageToChannel = async () => {
+try {
+  const result = await pubnub.publish({
+      message: {
+          such: "object",
+      },
+      channel: "my_channel",
+      sendByPost: false, // true to send via post
+      storeInHistory: false, //override default storage options
+      meta: {
+          cool: "meta",
+      }, // publish extra meta with the request
+  });
+} catch (status) {
+  console.log(status);
+}
+}
+
+
+// Store the published message for 10 hours
+const storeMessage = async () => {
+try {
+  const result = await pubnub.publish({
+      message: "hello!",
+      channel: "my_channel",
+      storeInHistory: true,
+      ttl: 10,
+  });
+  console.log("message published w/ server response: ", response);
+} catch (status) {
+  console.log("publishing failed w/ status: ", status);
+}
+}
+
+//  Add a channel
+  const addChannel = async () => {
+    try {
+      const result = await pubnub.channelGroups.addChannels({
+          channels: ["ch1", "ch2"],
+          channelGroup: "myChannelGroup",
+      });
+      console.log("operation done!");
+      result.channels.forEach(function (channel) {
+          console.log(channel);
+      });
+  } catch (status) {
+      console.log("operation failed w/ error:", status);
+  }}
+
+
+// List all channels
+ const listChannels = async () => {
+// assuming an intialized PubNub instance already exists
+try {
+  const result = await pubnub.channelGroups.listChannels({
+      channelGroup: "myChannelGroup",
+  });
+  console.log("Listing push channels for the device");
+  result.channels.forEach(function (channel) {
+      console.log(channel);
+  });
+} catch (status) {
+  console.log("Operation failed w/ error:", status);
+}
+ }
+
+
+// Remove a channel
+const removeChannel = async () => {
+  // assuming an initialized PubNub instance already exists
+try {
+  const result = await pubnub.channelGroups.removeChannels({
+      channels: ["son"],
+      channelGroup: "family",
+  });
+  console.log("operation done!");
+  result.channels.forEach(function (channel) {
+      console.log(channel);
+  });
+} catch (status) {
+  console.log("operation failed w/ error:", status);
+}
+}
+
+
+const viewUsersInChannel = async () => {
+try {
+  const result = await pubnub.hereNow({
+      channels: ["ch1"],
+      channelGroups: ["cg1"],
+      includeUUIDs: true,
+      includeState: true,
+  });
+} catch (status) {
+  console.log(status);
+}
+}
+
+
+// Basic usage for fetch history
+// pubnub.fetchMessages({
+//   channels: Array<string>,
+//   count: number,
+//   includeMessageType: boolean,
+//   includeUUID: boolean,
+//   includeMeta: boolean,
+//   includeMessageActions: boolean,
+//   start: string,
+//   end: string
+// })
+
+
+const displayLastMessage = async () => {
+try {
+  const result = await pubnub.fetchMessages({
+      channels: ["ch1"],
+      start: "15343325214676133",
+      end: "15343325004275466",
+      count: 1,
+  });
+} catch (status) {
+  console.log(status);
+}
+}
+
+
+const deleteMessage = async () => {
+try {
+  const result = await pubnub.deleteMessages({
+      channel: "ch1",
+      start: "15088506076921021",
+      end: "15088532035597390",
+  });
+} catch (status) {
+  console.log(status);
+}
+}
+
+
+const viewLatestMessages = async () => {
+try {
+  const result = await pubnub.history({
+      channel: "history_channel",
+      count: 100, // how many items to fetch
+      stringifiedTimeToken: true, // false is the default
+  });
+} catch (status) {
+  console.log(status);
+}
+}
+
+
+const viewMessageCounts = async () => {
+try {
+  const result = await pubnub.messageCounts({
+      channels: ["chats.room1", "chats.room2"],
+      channelTimetokens: ["15518041524300251"],
+  });
+} catch (status) {
+  console.log(status);
+}
+}
+
+
+const messageAction = async () => {
+try {
+  const result = await pubnub.addMessageAction({
+      channel: "channel1",
+      messageTimetoken: "15610547826970040",
+      action: {
+          type: "reaction",
+          value: "smiley_face",
+      },
+  });
+} catch (status) {
+  console.log(status);
+}
+}
+
+
+const removeMessageAction = async () => {
+  try {
+    const result = await pubnub.removeMessageAction({
+        channel: "channel1",
+        messageTimetoken: "15610547826970040",
+        actionTimetoken: "15610547826970040",
+    });
+} catch (status) {
+    console.log(status);
+}
+}
+
