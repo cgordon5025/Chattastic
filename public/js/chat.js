@@ -1,12 +1,11 @@
 // const User = require("");
 const PubNub = require('pubnub');
 const pubnub = new PubNub({
-  publishKey: "",
-  subscribeKey: "",
-  // we can use req.body.userid here?
-  userId: "myUniqueUserId",
 
-  // authKey: "myAuthKey",
+  // we can use req.body.userid here?
+
+
+ 
   
 });
 // pubnub.getUserId();
