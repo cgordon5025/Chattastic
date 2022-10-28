@@ -1,4 +1,10 @@
 const router = require('express').Router();
+
+router.use("/users", require("./user-routes"));
+
+module.exports = router;
+
+
 // const apiRoutes = require('./api');
 // const homeRoutes = require('./homeRoutes')
 
@@ -12,16 +18,16 @@ const router = require('express').Router();
 // });
 
 
-router.get('/', async (req, res) => {
-    res.render('homepage')
-})
+// router.get('/', async (req, res) => {
+//     res.render('homepage')
+// })
 
-router.post('/', async (req, res) => {
-    const userData = await User.findAll()
-    const users = userData.map((user) => user.get({ plain: true })
-    )
-    res.render('homepage', {
-        users
-    })
-})
-module.exports = router;
+// router.post('/', async (req, res) => {
+//     const userData = await User.findAll()
+//     const users = userData.map((user) => user.get({ plain: true })
+//     )
+//     res.render('homepage', {
+//         users
+//     })
+// })
+// module.exports = router;

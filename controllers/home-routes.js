@@ -2,6 +2,12 @@ const router = require("express").Router();
 const { User } = require("../models");
 const withAuth = require("../utils/auth")
 
+router.get('/', (req, res) => {
+  res.render('homepage')
+});
+
+
+
 // Use withAuth middleware to prevent access to route
 router.get('/chatroom', withAuth, async (req, res) => {
     try {
@@ -12,7 +18,7 @@ router.get('/chatroom', withAuth, async (req, res) => {
   
       const user = userData.get({ plain: true });
   
-      res.render('profile', {
+      res.render('chatroom', {
         ...user,
         logged_in: true
       });

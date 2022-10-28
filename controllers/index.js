@@ -1,19 +1,22 @@
 const router = require("express").Router();
 
-const userRoutes = require("./user-routes");
+// const userRoutes = require("./api/user-routes");
 const channelRoute = require("./channelRoute");
 const threadRoute = require("./threadRoute");
-const homeRoutes = require('./home-routes')
+const homeRoutes = require('./home-routes');
+const apiRoutes = require("./api");
 // const postRoutes = require('./post-routes');
 // const apiRoutes = require('./api');
 
-router.use("/user", userRoutes);
+router.use("/api", apiRoutes);
+// router.use("/user", userRoutes);
 router.use('/channel', channelRoute)
 router.use('/thread', threadRoute)
-router.use('/',homeRoutes)
-router.get("/", async (req, res) => {
-  res.render("chatroom");
-});
+router.use('/',homeRoutes);
+
+// router.get("/", async (req, res) => {
+//   res.render("chatroom");
+// });
 
 
 module.exports = router;
