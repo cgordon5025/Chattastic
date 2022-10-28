@@ -1,13 +1,16 @@
-{{#if user.id == req.session.userID}}
+{{#if whichUser}}
 <ul class="m-3 p-0">
     {{#each posts as |post|}}
-    {{>post-details}}
+    {{>myMessage}}
     {{/each}}
 </ul>
 {{else}}
 <ul class="m-3 p-0">
     {{#each posts as |post|}}
-    {{>post-details}}
+    {{>otherMessage}}
     {{/each}}
 </ul>
 {{/if}}
+
+<p> test code</p>
+<script src="/js/chatroom.js"></script>
