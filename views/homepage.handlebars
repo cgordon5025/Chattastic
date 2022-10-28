@@ -1,4 +1,7 @@
 <div>
-    <p> Hello!</p>
-    <p>{{example}}</p>
+    <ul>
+        {{#each channels as |channel|}}
+        {{>channel-details}}
+        {{/each}}
+    </ul>
 </div>

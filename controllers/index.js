@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const withAuth = require("../utils/auth")
 
 const userRoutes = require("./user-routes");
 const channelRoute = require("./channelRoute");
@@ -10,9 +11,9 @@ const homeRoutes = require('./home-routes')
 router.use("/user", userRoutes);
 router.use('/channel', channelRoute)
 router.use('/thread', threadRoute)
-router.use('/',homeRoutes)
-router.get("/", async (req, res) => {
-  res.render("chatroom");
+router.use('/', homeRoutes)
+router.get("/", withAuth, async (req, res) => {
+  res.render("homepage");
 });
 
 

@@ -3,10 +3,12 @@ const { User } = require("../models");
 const withAuth = require("../utils/auth")
 
 // Use withAuth middleware to prevent access to route
+
+//this is wrong needs to, why would i just grab the userData and put it in the chatroom
 router.get('/chatroom', withAuth, async (req, res) => {
     try {
       // Find the logged in user based on the session ID
-      const userData = await User.findByPk(req.session.user_id, {
+      const userData = await User.findByPk(req.session.userID, {
         attributes: { exclude: ['password'] },
       });
   
@@ -14,7 +16,7 @@ router.get('/chatroom', withAuth, async (req, res) => {
   
       res.render('profile', {
         ...user,
-        logged_in: true
+        loggedIn: true
       });
     } catch (err) {
       res.status(500).json(err);
@@ -23,8 +25,8 @@ router.get('/chatroom', withAuth, async (req, res) => {
 
   router.get('/login', (req, res) => {
     // If the user is already logged in, redirect the request to another route
-    if (req.session.logged_in) {
-      res.redirect('/chatroom');
+    if (req.session.loggedIn) {
+      res.redirect('/');
       return;
     }
   
