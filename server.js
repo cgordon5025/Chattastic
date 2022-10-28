@@ -5,7 +5,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-
+const socketio = require('socket.io')
 const path = require('path')
 const { strict } = require('assert')
 //locations of files
@@ -46,8 +46,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 app.use(express.static(path.join(__dirname, 'public')));
-sequelize.sync({ force: false }).then(() => {
+const server = sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => {
         console.log(`App Listening on port ${PORT}`)
     });
+})
+
+
+const io = socketio(server)
+
+io.on('connection', socket => {
+    console.log('new user connected"')
 })
