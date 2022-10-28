@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Post } = require("../models");
+const { User, Post } = require("../../models");
 
 // get all messages
 router.get("/", async (req, res) => {
@@ -31,5 +31,24 @@ router.get("/:id", async (req, res) => {
 });
 
 
+router.post('/signup', async (req, res) => {
+  try {
+    const createdUserData = await User.create({
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+    });
+    //this sets up the new user information
+    req.session.save(() => {
+      req.session.loggedIn = true;
+      req.session.userID = userData.id;
+      req.session.username = userData.username;
+      res.status(200).json(userData)
+    });
+    res.status(200).json(createdUserData);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 module.exports = router;
