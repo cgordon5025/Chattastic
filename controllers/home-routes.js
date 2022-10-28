@@ -1,80 +1,34 @@
 const router = require("express").Router();
-const { User } = require("../models")
+const { User } = require("../models");
+const withAuth = require("../utils/auth")
 
-//Creates a New User//
-router.post("/signup", async (req, res) => {
+// Use withAuth middleware to prevent access to route
+router.get('/chatroom', withAuth, async (req, res) => {
     try {
-        const dbUserData = await User.create({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-        });
-        req.session.save(() => {
-            req.session.loggedIn = true;
-            res.status(200).json(dbUserData)
-        });
+      // Find the logged in user based on the session ID
+      const userData = await User.findByPk(req.session.user_id, {
+        attributes: { exclude: ['password'] },
+      });
+  
+      const user = userData.get({ plain: true });
+  
+      res.render('profile', {
+        ...user,
+        logged_in: true
+      });
     } catch (err) {
-        console.log(err);
-        res.status(500).json(err);
+      res.status(500).json(err);
     }
-});
+  });
 
-//Login function
-router.post("/login", async (req, res) => {
-    try{
-        const dbUserData = await User.findOne({
-            where: {
-                email: req.body.email,
-            },
-        });
-
-        if(!dbUserData) {
-            res
-                .status(400)
-                .json({ message: "Invalid email or Password. Please try again"})
-                return;
-        }
-
-        const validPass = await dbUserData.checkPass(req.body.password);
-
-        if(!validPass) {
-            res
-                .status(400)
-                .json({ message: "Invalid email or Password. Please try again"})
-                return;
-        }
-
-        req.session.save(() => {
-            req.session.loggedIn = true;
-            console.log(
-                "Success!!",
-                req.session.cookie
-            );
-
-            res
-                .status(200)
-                .json({ user:dbUserData, message: "Login Successful"})
-        });
-    } catch(err) {
-        console.log(err)
-        res.status(500).json(err);
+  router.get('/login', (req, res) => {
+    // If the user is already logged in, redirect the request to another route
+    if (req.session.logged_in) {
+      res.redirect('/chatroom');
+      return;
     }
-});
-
-//Logout//
-router.post("/logout", (req, res) => {
-    if (req.session.loggedIn) {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
-    } else {
-        res.status(404).end();
-    }
-});
-
-// router.get('/chatroom', async, (req,res) => {
-
-// })
-
+  
+    res.render('login');
+  });
 
 module.exports = router;
