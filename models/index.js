@@ -6,15 +6,50 @@ const Message = require('./Message')
 //Post to be added in later//
 // const Post = require('./Post');
 
+User.hasMany(Channel, {
+  foreignKey: 'user_id',
+});
+
+Channel.belongsTo(User, {
+  foreignKey: 'user_id',
+  onDelete: "SET NULL"
+});
+
+User.hasMany(Thread, {
+  foreignKey: 'user_id'
+});
+
+Thread.belongsTo(User, {
+  foreignKey: 'user_id',
+  onDelete: "SET NULL"
+});
+
+User.hasMany(Message, {
+  foreignKey: "user_id"
+});
+
+Message.belongsTo(User, {
+  foreignKey: "user_id",
+  onDelete: "SET NULL"
+});
 
 Channel.hasMany(Thread, {
-  foreignKey: "id",
-  onDelete: "CASCADE",
+  foreignKey: "channel_id",
 });
 
 Thread.belongsTo(Channel, {
-  foreignKey: "id",
+  foreignKey: "channel_id",
+  onDelete: "SET NULL",
 });
+
+Thread.hasMany(Message, {
+  foreignKey: "thread_id"
+});
+
+Message.belongsTo(Thread, {
+  foreignKey: "thread_id",
+  onDelete: "SET NULL"
+})
 
 module.exports = { User, Channel, Thread, Message };
 

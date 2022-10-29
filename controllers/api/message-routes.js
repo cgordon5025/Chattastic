@@ -3,14 +3,7 @@ const { Message } = require("../../models");
 
 router.get("/", async (req, res) => {
   try {
-    const message = await Message.findAll({
-      include: [
-        {
-          model: Message,
-          attributes: "text",
-        },
-      ],
-    });
+    const message = await Message.findAll();
     res.status(200).json(message)
   } catch (err) {
     console.log(err);

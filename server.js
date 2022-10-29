@@ -47,22 +47,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 app.use(express.static(path.join(__dirname, 'public')));
 
-sequelize.sync({ force: false }).then(() => {
-        app.listen(PORT, () => {
-            console.log(`App Listening on port ${PORT}`)
-        });
-    })
-
-    
-// const server = sequelize.sync({ force: false }).then(() => {
-//     app.listen(PORT, () => {
-//         console.log(`App Listening on port ${PORT}`)
-//     });
-// })
-
-
-// // const io = socketio(server)
-
-// io.on('connection', socket => {
-//     console.log('new user connected"')
-// })
+sequelize.sync({ force: true }).then(() => {
+    app.listen(PORT, () => {
+        console.log(`App Listening on port ${PORT}`)
+    });
+})
