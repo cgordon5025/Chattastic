@@ -15,9 +15,9 @@ router.use('/channel', channelRoute);
 router.use('/thread', threadRoute);
 router.use('/', homeRoutes);
 
-router.get("/", async (req, res) => {
-  res.render("chatroom");
-});
+// router.get("/", async (req, res) => {
+//   res.render("chatroom");
+// });
 
 
 module.exports = router;
