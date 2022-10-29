@@ -11,10 +11,12 @@ const messageRoutes = require('./api/message-routes');
 // const apiRoutes = require('./api');
 
 router.use("/user", userRoutes);
+
 router.use('/channel', channelRoute);
 router.use('/thread', threadRoute);
 router.use('/', homeRoutes);
 router.use('/message', messageRoutes);
+
 router.get("/", async (req, res) => {
   res.render("chatroom");
 });
