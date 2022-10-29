@@ -10,7 +10,7 @@ const homeRoutes = require('./home-routes')
 router.use("/user", userRoutes);
 router.use('/channel', channelRoute)
 router.use('/thread', threadRoute)
-router.use('/',homeRoutes)
+router.use('/', homeRoutes)
 router.get("/", async (req, res) => {
   res.render("chatroom");
 });

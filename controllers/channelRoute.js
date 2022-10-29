@@ -1,32 +1,22 @@
 const router = require("express").Router();
-const Channel = require("../models");
+const {Channel, Thread} = require("../models");
 
 router.get("/", async (req, res) => {
   try {
-    const channel = await Channel.findAll({
-      include: [
-        {
-          model: Channel,
-          attributes: "title",
-        },
-      ],
-    });
+    const channel = await Channel.findAll();
+    res.status(200).json(channel)
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
 
-router.get("/channel/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const channelData = await Channel.findByPk(req.params.id, {
-      include: [
-        {
-          model: Channel,
-          attributes: ["id", "title"],
-        },
-      ],
     });
+    res.status(200).json(channelData)
+    console.log(channelData);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -36,15 +26,15 @@ router.get("/channel/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   // create a new tag
   try {
-    const createdUserData = await User.create(req.body);
-    res.status(200).json(createdUserData);
+    const createdChannelData = await Channel.create(req.body);
+    res.status(200).json(createdChannelData);
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
 router.delete("/:id", async (req, res) => {
-  // delete one user by its `id` value
+  // delete one channel by its `id` value
   try {
     const deletedChannel = await Channel.destroy({
       where: {
@@ -61,3 +51,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 module.exports = router;
+
