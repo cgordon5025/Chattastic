@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/Message/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const messageData = await Message.findByPk(req.params.id, {
       include: [
