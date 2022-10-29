@@ -10,9 +10,11 @@ const apiRoutes = require('./api')
 // const postRoutes = require('./post-routes');
 // const apiRoutes = require('./api');
 router.use('/api', apiRoutes)
-// router.use('/channel', channelRoute);
-// router.use('/thread', threadRoute);
+
+router.use('/channel', channelRoute);
+router.use('/thread', threadRoute);
 router.use('/', homeRoutes);
+
 router.get("/", async (req, res) => {
   res.render("chatroom");
 });
