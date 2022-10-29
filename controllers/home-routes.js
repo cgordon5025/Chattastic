@@ -6,7 +6,7 @@ const withAuth = require("../utils/auth")
 //   res.render('homepage')
 // });
 //We want to display all the channel's you have joined
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const channelData = await Channel.findAll()
     const channels = channelData.map((channel) =>
