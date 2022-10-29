@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Channel } = require("../models");
+const { User, Channel, Message } = require("../models");
 const withAuth = require("../utils/auth")
 
 // router.get('/', (req, res) => {
@@ -24,12 +24,32 @@ router.get('/', async (req, res) => {
 router.get('/chatroom', async (req, res) => {
   try {
     // Find the logged in user based on the session ID
-    const userData = await User.findAll();
+    const userData = await User.findByPk(req.session.userID, {
+      attributes: { exclude: ['password'] },
+    });
 
     const posts = userData.map((user) => user.get({ plain: true }));
     
     res.render('chatroom', {
-      posts,
+      ...user,
+      loggedIn: req.session.loggedIn
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.get('/chatroom/:id', async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+    const messageData = await Message.findAll({
+      where: { channel_id: req.params.id }
+    });
+
+    const messages = messageData.map((message) => message.get({ plain: true }))
+
+    res.render('chatroom', {
+      messages,
       loggedIn: req.session.loggedIn
     });
   } catch (err) {
@@ -39,7 +59,7 @@ router.get('/chatroom', async (req, res) => {
 
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
-  if (req.session.loggedIn) {
+  if (req.session.logged_in) {
     res.redirect('/homepage');
     return;
   }
