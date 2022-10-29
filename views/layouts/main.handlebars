@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our website</title>
-        <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
@@ -23,7 +23,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard">Dashboard</a>
                     </li>
-                     {{#if loggedin}}
+                    {{#if loggedin}}
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
@@ -31,10 +31,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
-                     {{/if}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">CHECKOUT</a>
-                    </li>
+                    {{/if}}
                 </ul>
             </div>
         </nav>
@@ -42,7 +39,7 @@
     <main>
         {{{body}}}
     </main>
-   <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.7.2.0.js"></script>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.7.2.0.js"></script>
 </body>
 
 </html>

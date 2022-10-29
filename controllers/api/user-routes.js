@@ -32,7 +32,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
+//localhost:3040/api/user/signup
 router.post('/signup', async (req, res) => {
   try {
     const userData = await User.create({
@@ -47,6 +47,7 @@ router.post('/signup', async (req, res) => {
     });
     res.status(200).json(userData);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
