@@ -4,9 +4,7 @@
 
 
 const pubnub = new PubNub ({
-    publishKey : "pub-c-1ec1a0aa-1745-4f40-bf2f-45021d89be5b",
-    subscribeKey: "sub-c-2032760e-5bfe-4054-81dd-5d9ea84edec6",
-    userId: "myUserId"
+ 
 });
 
 function sendmessage(txt) {
