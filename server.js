@@ -52,3 +52,5 @@ sequelize.sync({ force: false }).then(() => {
         console.log(`App Listening on port ${PORT}`)
     });
 })
+
+

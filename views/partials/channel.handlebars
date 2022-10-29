@@ -7,12 +7,44 @@
   <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
 </div>
 
-
 <script src="/public/js/"></script> --}}
 
+    {{!-- <div class="form-group">
+        <label for="post-comment">Password:</label>
+        <input class="form-input" type="text" id="po" />
+    </div> --}}
 
 
-    <div class="form-group">
-        <label for="password-signup">Password:</label>
-        <input class="form-input" type="password" id="password-signup" />
+
+    
+    <script>
+    const buttonClick = () => {
+        let input = document.getElementById('message-body');
+        publishMessage(input.value);
+        input.value = '';
+    };
+    const showMessage = (msg) => {
+        let message = document.createElement('div');
+        message.innerText = msg;
+        document.getElementById('messages').appendChild(message);
+    };
+    let pubnub;
+    const setupPubNub = () => {
+        // Update this block with your publish/subscribe keys
+        pubnub = new PubNub({
+            publishKey : "myPublishKey",
+            subscribeKey : "mySubscribeKey",
+            userId: "myUniqueUserId"
+        });
+        // add listener
+        // publish message
+        // subscribe to a channel
+    };
+    // run after page is loaded
+    window.onload = setupPubNub;
+    </script>
+    <div>
+        <input id="message-body" type="text">
+        <button onclick="buttonClick()">Send</button>
+        <div id="messages"></div>
     </div>
