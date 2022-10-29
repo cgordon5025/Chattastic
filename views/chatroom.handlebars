@@ -1,12 +1,12 @@
 {{#if whichUser}}
 <ul class="m-3 p-0">
-    {{#each posts as |post|}}
+    {{#each messages as |post|}}
     {{>myMessage}}
     {{/each}}
 </ul>
 {{else}}
 <ul class="m-3 p-0">
-    {{#each posts as |post|}}
+    {{#each messages as |post|}}
     {{>otherMessage}}
     {{/each}}
 </ul>
@@ -14,5 +14,5 @@
 
 <input id="message" type="text-area">
 <button onclick="sendinput()">send</button>
-  <div id="pikachu"></div>
+<div id="pikachu"></div>
 <script src="/js/chatroom.js"></script>
