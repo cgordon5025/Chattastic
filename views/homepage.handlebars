@@ -1,3 +1,5 @@
 <div>
-    <p> Hello!</p>
+    {{#each channels as |channel|}}
+    {{>channel-details}}
+    {{/each}}
 </div>

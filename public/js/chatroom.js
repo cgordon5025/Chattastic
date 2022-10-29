@@ -27,3 +27,4 @@ function sendinput(){
     sendmessage(document.getElementById("message").value);
     document.getElementById("message").value="";
 }
+
