@@ -20,10 +20,24 @@ Message.init(
       references: {
         model: 'user',
         key: 'id'
-      }
-    }
+      },
+    },
+    channel_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'channel',
+        key: 'id'
+      },
+    },
+    thread_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'thread',
+        key: 'id'
+      },
+    },
   },
-{
+  {
     sequelize,
     timestamps: true,
     freezeTableName: true,
