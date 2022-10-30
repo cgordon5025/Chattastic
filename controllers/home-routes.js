@@ -25,10 +25,10 @@ router.get('/chatroom', async (req, res) => {
       attributes: { exclude: ['password'] },
     });
 
-    const user = userData.get({ plain: true });
-
-    res.render('chatroom', {
-      ...user,
+    const users = userData.map((user) => user.get({ plain: true }));
+    
+    res.render('chatroom/1', {
+      ...users,
       loggedIn: req.session.loggedIn
     });
   } catch (err) {
@@ -89,4 +89,15 @@ router.get('/newAnnoucement', async (req, res) => {
   res.render('newAnnoucement')
 })
 
+router.get('/addChannels', async (req, res) => {
+  try {
+    // Find the logged in user based on the session ID
+  
+    res.render('addChannels', {
+      loggedIn: req.session.loggedIn
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 module.exports = router;
