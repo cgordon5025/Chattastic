@@ -13,7 +13,8 @@
 
 
 const pubnub = new PubNub({
-   
+    publishKey : "pub-c-1ec1a0aa-1745-4f40-bf2f-45021d89be5b",
+    subscribeKey: "sub-c-2032760e-5bfe-4054-81dd-5d9ea84edec6",
     userId: document.getElementById("message").dataset.username
 });
 
@@ -31,7 +32,7 @@ pubnub.addListener({
     message: function (m) {
         document.getElementById("pikachu").innerHTML += "<div class= 'chatContainer align-self-end'" + "<br>" + "<span class=  'myUsername'>" + m.publisher + "</span>" + " : " + "<span class= 'myText'>" + m.message.text + "</span> </div>"
         console.log(m);
-    }
+    },
 });
 
 pubnub.subscribe({
