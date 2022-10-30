@@ -2,11 +2,8 @@ const router = require("express").Router();
 const { User, Channel, Message } = require("../models");
 const withAuth = require("../utils/auth")
 
-// router.get('/', (req, res) => {
-//   res.render('homepage')
-// });
 //We want to display all the channel's you have joined
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const channelData = await Channel.findAll()
     const channels = channelData.map((channel) =>
@@ -43,7 +40,8 @@ router.get('/chatroom/:id', async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const messageData = await Message.findAll({
-      where: { channel_id: req.params.id }
+      where: { channel_id: req.params.id },
+      include: [{ model: User }]
     });
 
     const messages = messageData.map((message) => message.get({ plain: true }))
@@ -56,16 +54,40 @@ router.get('/chatroom/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+router.get('/signup', async (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/')
+    return
+  }
+  res.render('signup')
+})
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in) {
-    res.redirect('/homepage');
+  if (req.session.loggedIn) {
+    res.redirect('/');
     return;
   }
-
   res.render('login');
 });
+
+router.get('/annoucements', async (req, res) => {
+  try {
+    const messageData = await Message.findAll({
+      include: [{ model: User }]
+    });
+    const messages = messageData.map((message) => message.get({ plain: true }))
+    res.render('annoucements', {
+      messages,
+      loggedIn: req.session.loggedIn
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
+
+router.get('/newAnnoucement', async (req, res) => {
+  res.render('newAnnoucement')
+})
 
 router.get('/addChannels', async (req, res) => {
   try {

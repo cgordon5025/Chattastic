@@ -11,6 +11,10 @@ Message.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     text: {
       type: DataTypes.TEXT,
       allowNull: false,
