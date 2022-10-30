@@ -24,9 +24,9 @@ router.get('/chatroom', async (req, res) => {
     const userData = await User.findByPk(req.session.userID, {
       attributes: { exclude: ['password'] },
     });
-    console.log(userData);
+    // console.log(userData);
     const users = userData.get({ plain: true });
-    console.log(users);
+    // console.log(users);
     res.render('chatroom', {
       users,
       loggedIn: req.session.loggedIn
@@ -39,15 +39,14 @@ router.get('/chatroom', async (req, res) => {
 router.get('/chatroom/:id', async (req, res) => {
   try {
     // Find the logged in user based on the session ID
-    const messageData = await Message.findAll({
-      where: { channel_id: req.params.id },
+    const channelData = await Channel.findByPk(req.params.id, {
       include: [{ model: User }]
     });
 
-    const messages = messageData.map((message) => message.get({ plain: true }))
-
-    res.render('chatroom', {
-      messages,
+    const channel = channelData.get({ plain: true })
+    // console.log(channel)
+    res.render('newChannel', {
+      channel,
       loggedIn: req.session.loggedIn
     });
   } catch (err) {
@@ -92,7 +91,7 @@ router.get('/newAnnoucement', async (req, res) => {
 router.get('/addChannels', async (req, res) => {
   try {
     // Find the logged in user based on the session ID
-  
+
     res.render('addChannels', {
       loggedIn: req.session.loggedIn
     });

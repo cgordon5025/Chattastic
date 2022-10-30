@@ -3,17 +3,28 @@ const User = require("./User");
 const Channel = require("./Channel");
 const Thread = require("./Thread");
 const Message = require('./Message')
+const ChannelTag = require('./Channel-tags')
 //Post to be added in later//
 // const Post = require('./Post');
 
-User.hasMany(Channel, {
-  foreignKey: 'user_id',
-});
+User.belongsToMany(Channel, {
+  through: ChannelTag,
+  foreignKey: "user_id"
+})
 
-Channel.belongsTo(User, {
-  foreignKey: 'user_id',
-  onDelete: "SET NULL"
-});
+Channel.belongsToMany(User, {
+  through: ChannelTag,
+  foreignKey: "channel_id"
+})
+
+// User.hasMany(Channel, {
+//   foreignKey: 'user_id',
+// });
+
+// Channel.belongsTo(User, {
+//   foreignKey: 'user_id',
+//   onDelete: "SET NULL"
+// });
 
 User.hasMany(Thread, {
   foreignKey: 'user_id'
@@ -51,5 +62,5 @@ Message.belongsTo(Thread, {
   onDelete: "SET NULL"
 })
 
-module.exports = { User, Channel, Thread, Message };
+module.exports = { User, Channel, Thread, Message, ChannelTag };
 
