@@ -2,9 +2,6 @@ const router = require("express").Router();
 const { User, Channel, Message } = require("../models");
 const withAuth = require("../utils/auth")
 
-// router.get('/', (req, res) => {
-//   res.render('homepage')
-// });
 //We want to display all the channel's you have joined
 router.get('/', withAuth, async (req, res) => {
   try {
@@ -43,7 +40,8 @@ router.get('/chatroom/:id', async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const messageData = await Message.findAll({
-      where: { channel_id: req.params.id }
+      where: { channel_id: req.params.id },
+      include: [{ model: User }]
     });
 
     const messages = messageData.map((message) => message.get({ plain: true }))
@@ -56,11 +54,17 @@ router.get('/chatroom/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+router.get('/signup', async (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/')
+    return
+  }
+  res.render('signup')
+})
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.loggedIn) {
-    res.redirect('/homepage');
+    res.redirect('/');
     return;
   }
 

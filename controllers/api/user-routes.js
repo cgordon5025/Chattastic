@@ -44,14 +44,15 @@ router.post('/signup', async (req, res) => {
       req.session.loggedIn = true;
       req.session.userID = userData.id;
       req.session.username = userData.username;
+      res.status(200).json(userData)
     });
-    res.status(200).json(userData);
+    console.log(req.session.loggedIn)
   } catch (err) {
     console.log(err)
     res.status(500).json(err);
   }
 });
-
+//api/user/login
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { username: req.body.username } });

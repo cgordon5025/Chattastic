@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {Channel, Thread} = require("../models");
+const { Channel, Thread } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
