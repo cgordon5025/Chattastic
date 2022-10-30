@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Thread = require("../models");
+const Thread = require("../../models");
 
 router.get("/", async (req, res) => {
   try {

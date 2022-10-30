@@ -1,24 +1,13 @@
-{{!-- {{#if whichUser}}
-<ul class="m-3 p-0">
-    {{#each messages as |post|}}
-    {{>myMessage}}
-    {{/each}}
-</ul>
-{{else}}
-<ul class="m-3 p-0">
-    {{#each messages as |post|}}
-    {{>otherMessage}}
-    {{/each}}
-</ul> --}}
+<h1 id="channelName" class=" text-center">Live Chat</h1>
+
 
 
 
 <div id="pikachu" class="d-flex flex-column"></div>
-{{!-- {{/if}} --}}
-<script src="/js/test.js">
+
 
 </script>
-<input data-username= "{{users.username}}" id="message" type="text-area">
+<input data-username="{{users.username}}" id="message" type="text-area">
 <button onclick="sendinput()">send</button>
 
 <script src="/js/chatroom.js"></script>

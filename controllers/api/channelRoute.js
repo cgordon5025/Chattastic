@@ -1,19 +1,22 @@
 const router = require("express").Router();
-const { Channel, Thread } = require("../models");
+const { User, Channel, Thread } = require("../../models");
 
 router.get("/", async (req, res) => {
   try {
-    const channel = await Channel.findAll();
+    const channel = await Channel.findAll({
+      include: [{ model: User }]
+    });
     res.status(200).json(channel)
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
-
-router.get("//:id", async (req, res) => {
+///api/channel/1
+router.get("/:id", async (req, res) => {
   try {
     const channelData = await Channel.findByPk(req.params.id, {
+      include: [{ model: User }]
     });
     res.status(200).json(channelData)
     console.log(channelData);
