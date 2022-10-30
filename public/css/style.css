@@ -4,14 +4,40 @@ p {
 
 .chatContainer {
     font-size: 16px;
-    background-color: rgb(172, 184, 196);
-    width: 80%;
+   
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* margin: 0; */
+    border-radius: 5px;
+    margin: 5px;
+    background-color: rgb(166, 166, 206);
 }
 
-.username {
-    color: green;
+.myUsername {
+    color: rgb(0, 0, 0);
+ 
+}
+
+.myText {
+    word-break: break-all;
+    color: white;
+}
+
+.theirUsername {
+    color: rgb(214, 61, 61);
+   
+}
+
+.theirText {
+    word-break: break-all;
+    color: white;
+}
+
+#pikachu {
+    width: 50%;
+    margin: auto;
+    background-color: rgb(172, 184, 196);
 }
 
