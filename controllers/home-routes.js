@@ -85,4 +85,8 @@ router.get('/annoucements', async (req, res) => {
   }
 })
 
+router.get('/newAnnoucement', async (req, res) => {
+  res.render('newAnnoucement')
+})
+
 module.exports = router;
