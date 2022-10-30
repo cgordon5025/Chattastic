@@ -1,0 +1,10 @@
+<li class="card mb-3">
+    {{!-- <a class='commentLink' href="/comment/{{id}}"> --}}
+        <div class="card-header d-flex justify-content-between" id="postHeader">
+            <p>{{title}}</p>
+            <p>{{user.username}} {{format_time createdAt}}</p>
+        </div>
+        <p class="card-body">{{text}}</p>
+        {{!--
+    </a> --}}
+</li>
