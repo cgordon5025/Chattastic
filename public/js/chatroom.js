@@ -3,8 +3,19 @@
 // })()
 
 
-const pubnub = new PubNub ({
+// const startPub = () => {
+    
+//     const pubnub = new PubNub ({
+//         publishKey : "pub-c-1ec1a0aa-1745-4f40-bf2f-45021d89be5b",
+//         subscribeKey: "sub-c-2032760e-5bfe-4054-81dd-5d9ea84edec6",
+//         userId: "User"
+//     });
+// }
+// startPub();
 
+
+const pubnub = new PubNub ({
+ 
 });
 
 function sendmessage(txt) {
@@ -77,14 +88,16 @@ function sendinput(){
         {
           channels: ["msg"],
         
-          count: 100 // default/max is 25 messages for multiple channels (up to 500)
+          count: 50 // default/max is 25 messages for multiple channels (up to 500)
         },
         function(status, response) {
             for (let i = 0; i < response.channels.msg.length; i++){
-                document.getElementById("pikachu").innerHTML+="<br>"+response.channels.msg[i].message.text
+                document.getElementById("pikachu").innerHTML+="<br>"+ response.channels.msg[i].uuid + ": " + response.
+                channels.msg[i].message.text
             }
         //   console.log(status, response);
           console.log(response);
           console.log(response.channels.msg[0].message.text)
+        //   console.log(response.)
         }
       );
