@@ -22,20 +22,20 @@
 // // makes app display messages as they are received
 
 
-// const listener = {
-//     status: (statusEvent) => {
-//         if (statusEvent.category === "PNConnectedCategory") {
-//             console.log("Connected");
-//         }
-//     },
-//     message: (messageEvent) => {
-//         showMessage(messageEvent.message.description);
-//     },
-//     presence: (presenceEvent) => {
-//         // handle presence
-//     }
-// };
-// pubnub.addListener(listener);
+const listener = {
+    status: (statusEvent) => {
+        if (statusEvent.category === "PNConnectedCategory") {
+            console.log("Connected");
+        }
+    },
+    message: (messageEvent) => {
+        showMessage(messageEvent.message.description);
+    },
+    presence: (presenceEvent) => {
+        // handle presence
+    }
+};
+pubnub.addListener(listener);
 
 
 // // publishes a message when publishMessage() is called
@@ -180,31 +180,31 @@
 // }
 
 
-// // Basic usage for fetch history
-// // pubnub.fetchMessages({
-// //   channels: Array<string>,
-// //   count: number,
-// //   includeMessageType: boolean,
-// //   includeUUID: boolean,
-// //   includeMeta: boolean,
-// //   includeMessageActions: boolean,
-// //   start: string,
-// //   end: string
-// // })
+// Basic usage for fetch history
+pubnub.fetchMessages({
+  channels: ["msg"],
+//   count: number,
+  includeMessageType: true,
+  includeUUID: false,
+  includeMeta: boolean,
+  includeMessageActions: true,
+//   start: string,
+//   end: string
+})
 
 
-// const displayLastMessage = async () => {
-// try {
-//   const result = await pubnub.fetchMessages({
-//       channels: ["ch1"],
-//       start: "15343325214676133",
-//       end: "15343325004275466",
-//       count: 1,
-//   });
-// } catch (status) {
-//   console.log(status);
-// }
-// }
+const displayLastMessage = async () => {
+try {
+  const result = await pubnub.fetchMessages({
+      channels: ["ch1"],
+      start: "15343325214676133",
+      end: "15343325004275466",
+      count: 1,
+  });
+} catch (status) {
+  console.log(status);
+}
+}
 
 
 // const deleteMessage = async () => {

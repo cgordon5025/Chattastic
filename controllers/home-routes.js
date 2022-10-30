@@ -27,7 +27,7 @@ router.get('/chatroom', async (req, res) => {
 
     const posts = userData.map((user) => user.get({ plain: true }));
     
-    res.render('chatroom', {
+    res.render('chatroom/1', {
       ...user,
       loggedIn: req.session.loggedIn
     });

@@ -2,7 +2,7 @@ const pubnub = new PubNub({
 
 });
 
-const thread = document.getElementById('channel');
+const thread = document.getElementById('thread');
 const publishButton = document.getElementById('publish-button');
 publishButton.addEventListener('click', () => {
     pubnub.publish({
@@ -18,13 +18,14 @@ const addToGroup = document.getElementById('add-to-group');
 addToGroup.addEventListener('click', () => {
     pubnub.channelGroups.addChannels({
         channels: [newThread.value],
-        channelGroup: 'my-group'
+        channelGroup: []
     });
 });
 
 pubnub.subscribe({
-    channels: ['channel-a.*'],    // Wildcard subscribe
-    channelGroups: ['my-group'] // Channel group subscribe
+    channels: [newThread.value],    // Wildcard subscribe
+    channelGroups: [] 
+    // Channel group subscribe
 });
 
 pubnub.addListener({
