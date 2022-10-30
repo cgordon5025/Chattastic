@@ -5,6 +5,14 @@ const Thread = require("./Thread");
 //Post to be added in later//
 // const Post = require('./Post');
 
+User.hasMany(Channel, {
+  foreignKey:"id",
+  onDelete: "CASCADE"
+});
+
+Channel.belongsTo(User, {
+foreignKey:"id"
+});
 
 Channel.hasMany(Thread, {
   foreignKey: "id",
