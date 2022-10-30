@@ -29,7 +29,8 @@ function sendmessage(txt) {
 
 pubnub.addListener({
     message: function(m){
-        document.getElementById("pikachu").innerHTML+="<br>"+m.message.text;
+        document.getElementById("pikachu").innerHTML+= "<div class= 'chatContainer'" + "<br>"+ "<span class=  'username'>" + m.publisher + "</span>" + " : " + "<span class= 'text'>" + m.message.text + "</span> </div>"
+        console.log(m);
     }
 });
 
@@ -91,7 +92,11 @@ function sendinput(){
         },
         function(status, response) {
             for (let i = 0; i < response.channels.msg.length; i++){
-                document.getElementById("pikachu").innerHTML+="<div class= 'chatContainer'" + "<br>"+ "<span class=  'username'>" + document.getElementById("message").dataset.username + "</span>" + " : " + "<span class= 'text'>" + response.channels.msg[i].message.text + "</span> </div>"
+             if (response.channels.msg[i].uuid == document.getElementById("message").dataset.username) {
+                document.getElementById("pikachu").innerHTML+="<div class= 'chatContainer align-self-end'" + "<br>"+ "<span class=  'myUsername'>" + response.channels.msg[i].uuid + "</span>" + " : " + "<span class= 'myText'>" + response.channels.msg[i].message.text + "</span> </div>"
+             } else {
+                document.getElementById("pikachu").innerHTML+="<div class= 'chatContainer'" + "<br>"+ "<span class=  'theirUsername'>" + response.channels.msg[i].uuid + "</span>" + " : " + "<span class= 'theirText'>" + response.channels.msg[i].message.text + "</span> </div>"
+             }
             }
         //   console.log(status, response);
           console.log(response);
