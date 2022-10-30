@@ -1,3 +1,17 @@
 p {
     color: black
 }
+
+.chatContainer {
+    font-size: 16px;
+    background-color: rgb(172, 184, 196);
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.username {
+    color: green;
+}
+

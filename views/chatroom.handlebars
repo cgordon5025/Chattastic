@@ -11,14 +11,14 @@
     {{/each}}
 </ul> --}}
 
-<p>{{users}}</p>
+
 
 <div id="pikachu"></div>
 {{!-- {{/if}} --}}
 <script src="/js/test.js">
 
 </script>
-<input id="message" type="text-area">
+<input data-username= "{{users.username}}" id="message" type="text-area">
 <button onclick="sendinput()">send</button>
 
 <script src="/js/chatroom.js"></script>

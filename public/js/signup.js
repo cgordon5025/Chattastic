@@ -10,8 +10,8 @@ const signupFormHandler = async (event) => {
         const response = await fetch("/api/user/signup ", {
             method: "POST",
             body: JSON.stringify({
-                username: username,
-                password: password
+                username,
+                password
             }),
             headers: { "Content-Type": "application/json" },
         });
@@ -20,10 +20,13 @@ const signupFormHandler = async (event) => {
             console.log("redirecting")
             document.location.replace("/");
         } else {
-            console.log("fuck!!!!!!!!")
+        
             alert("Failed sign up attempt.")
         }
     }
 };
 
+const nameOfUser = () => {
+    return username;
+}
 signupBtn.addEventListener("click", signupFormHandler);
