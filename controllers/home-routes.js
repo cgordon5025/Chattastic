@@ -25,10 +25,10 @@ router.get('/chatroom', async (req, res) => {
       attributes: { exclude: ['password'] },
     });
 
-    const posts = userData.map((user) => user.get({ plain: true }));
+    const users = userData.map((user) => user.get({ plain: true }));
     
     res.render('chatroom/1', {
-      ...user,
+      ...users,
       loggedIn: req.session.loggedIn
     });
   } catch (err) {
