@@ -24,11 +24,11 @@ router.get('/chatroom', async (req, res) => {
     const userData = await User.findByPk(req.session.userID, {
       attributes: { exclude: ['password'] },
     });
-
-    const users = userData.map((user) => user.get({ plain: true }));
-    
-    res.render('chatroom/1', {
-      ...users,
+    console.log(userData);
+    const users = userData.get({ plain: true });
+    console.log(users);
+    res.render('chatroom', {
+      users,
       loggedIn: req.session.loggedIn
     });
   } catch (err) {

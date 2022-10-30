@@ -13,7 +13,8 @@
 
 
 const pubnub = new PubNub ({
- 
+  
+    userId: document.getElementById("message").dataset.username
 });
 
 function sendmessage(txt) {
@@ -90,12 +91,11 @@ function sendinput(){
         },
         function(status, response) {
             for (let i = 0; i < response.channels.msg.length; i++){
-                document.getElementById("pikachu").innerHTML+="<br>"+ response.channels.msg[i].uuid + ": " + response.
-                channels.msg[i].message.text
+                document.getElementById("pikachu").innerHTML+="<div class= 'chatContainer'" + "<br>"+ "<span class=  'username'>" + document.getElementById("message").dataset.username + "</span>" + " : " + "<span class= 'text'>" + response.channels.msg[i].message.text + "</span> </div>"
             }
         //   console.log(status, response);
           console.log(response);
-          console.log(response.channels.msg[0].message.text)
-        //   console.log(response.)
+          console.log(response.channels.msg[i].uuid);
+          console.log(response.channels.msg[i].message.text);
         }
       );
