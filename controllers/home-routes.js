@@ -67,8 +67,26 @@ router.get('/login', (req, res) => {
     res.redirect('/');
     return;
   }
-
   res.render('login');
 });
+
+router.get('/annoucements', async (req, res) => {
+  try {
+    const messageData = await Message.findAll({
+      include: [{ model: User }]
+    });
+    const messages = messageData.map((message) => message.get({ plain: true }))
+    res.render('annoucements', {
+      messages,
+      loggedIn: req.session.loggedIn
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+})
+
+router.get('/newAnnoucement', async (req, res) => {
+  res.render('newAnnoucement')
+})
 
 module.exports = router;
