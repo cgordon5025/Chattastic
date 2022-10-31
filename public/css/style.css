@@ -55,3 +55,11 @@ p {
 
     /* background-color: rgb(59, 57, 57); */
 }
+
+input#message {
+    width: 90%;
+}
+
+button {
+    width: 10%;
+}
