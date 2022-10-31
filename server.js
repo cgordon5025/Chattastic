@@ -2,7 +2,7 @@
 const express = require('express');
 const Models = require('./models')
 const Controllers = require('./controllers')
-
+const seedAll = require('./seeds/index')
 const exphbs = require('express-handlebars');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -12,7 +12,8 @@ const { strict } = require('assert')
 //locations of files
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
-const helpers = require('./utils/helpers')
+const helpers = require('./utils/helpers');
+const { setDefaultResultOrder } = require('dns');
 
 const app = express();
 const PORT = process.env.PORT || 3040;
@@ -48,8 +49,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 app.use(express.static(path.join(__dirname, 'public')));
 
-sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => {
+sequelize.sync({ force: true }).then(async () => {
+    await seedAll()
+    await app.listen(PORT, () => {
         console.log(`App Listening on port ${PORT}`)
     });
 })

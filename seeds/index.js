@@ -21,11 +21,9 @@ const seedAll = async () => {
 
     await seedMessages()
     console.log('\n----- MESSAGES SEEDED -----\n');
-
-    process.exit(0);
 };
 
-seedAll();
+// seedAll();
 
-
+module.exports = seedAll
 
