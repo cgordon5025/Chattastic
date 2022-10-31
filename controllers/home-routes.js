@@ -76,10 +76,14 @@ router.get('/channel/:id', async (req, res) => {
       where: { channel_id: req.params.id },
       include: [{ model: Channel }, { model: User }]
     })
-    const threads = threadData.map((thread) => thread.get({ plain: true }))
-    const channelName = threads[0].channel.title;
-    const channelID = threads[0].channel.id;
+    //need to call this data separately in case there is no content in the forum
+    const channelData = await Channel.findByPk(req.params.id)
+    const channel = channelData.get({ plain: true })
+    const channelName = channel.title;
+    const channelID = channel.id;
     const userID = req.session.userID
+    const threads = threadData.map((thread) => thread.get({ plain: true }))
+
     console.log(channelName)
     // console.log(threadData)
     console.log(threads)
@@ -89,7 +93,6 @@ router.get('/channel/:id', async (req, res) => {
       channelID,
       userID
     })
-
   } catch (err) {
     console.log(err)
     res.status(500).json(err)
@@ -102,22 +105,18 @@ router.get('/thread/:id', async (req, res) => {
       where: { thread_id: req.params.id },
       include: [{ model: Channel }, { model: User }, { model: Thread }]
     })
-    const messages = messageData.map((message) => message.get({ plain: true }))
-    const channelName = messages[0].channel.title;
-    const channelID = messages[0].channel.id
-    const threadInfo = messages[0].thread.text_content
-    const threadID = messages[0].thread.id
-    const threadPosterData = await Thread.findByPk(threadID, {
-      include: [{ model: User }]
+    const threadData = await Thread.findByPk(req.params.id, {
+      include: [{ model: Channel }, { model: User }]
     })
-    const threadPosterRaw = threadPosterData.get({ plain: true })
-    const threadPoster = threadPosterRaw.user.username
+    const thread = threadData.get({ plain: true })
+    const channelName = thread.channel.title;
+    const channelID = thread.channel.id
+    const threadPoster = thread.user.username;
+    const threadID = thread.id;
+    const threadInfo = thread.text_content;
     const userID = req.session.userID
-    console.log(userID)
-    // console.log(threadID)
-    // console.log(channelName)
-    // console.log(threadData)
-    // console.log(messages)
+    // if (messageData.length > 0) {
+    const messages = messageData.map((message) => message.get({ plain: true }))
     res.render('singleThread', {
       messages,
       channelName,
