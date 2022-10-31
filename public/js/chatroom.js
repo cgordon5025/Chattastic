@@ -13,7 +13,7 @@
 
 
 const pubnub = new PubNub({
-   
+
     userId: document.getElementById("message").dataset.username
 });
 
@@ -31,7 +31,7 @@ pubnub.addListener({
     message: function (m) {
         document.getElementById("pikachu").innerHTML += "<div class= 'chatContainer align-self-end'" + "<br>" + "<span class=  'myUsername'>" + m.publisher + "</span>" + " : " + "<span class= 'myText'>" + m.message.text + "</span> </div>"
         console.log(m);
-    }
+    },
 });
 
 pubnub.subscribe({
