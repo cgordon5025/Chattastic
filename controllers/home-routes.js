@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Channel, Message } = require("../models");
+const { User, Channel, Message, Thread } = require("../models");
 const withAuth = require("../utils/auth")
 
 //We want to display all the channel's you have joined
@@ -18,7 +18,7 @@ router.get('/', withAuth, async (req, res) => {
 })
 
 // Use withAuth middleware to prevent access to route
-router.get('/chatroom', async (req, res) => {
+router.get('/chatroom', withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.userID, {
@@ -36,23 +36,6 @@ router.get('/chatroom', async (req, res) => {
   }
 });
 
-router.get('/chatroom/:id', async (req, res) => {
-  try {
-    // Find the logged in user based on the session ID
-    const channelData = await Channel.findByPk(req.params.id, {
-      include: [{ model: User }]
-    });
-
-    const channel = channelData.get({ plain: true })
-    // console.log(channel)
-    res.render('newChannel', {
-      channel,
-      loggedIn: req.session.loggedIn
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 router.get('/signup', async (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/')
@@ -84,19 +67,26 @@ router.get('/annoucements', async (req, res) => {
   }
 })
 
-router.get('/newAnnoucement', async (req, res) => {
-  res.render('newAnnoucement')
+router.get('/newForum', async (req, res) => {
+  res.render('newForum')
 })
-
-router.get('/addChannels', async (req, res) => {
+router.get('/channel/:id', async (req, res) => {
+  console.log("going to threads")
   try {
-    // Find the logged in user based on the session ID
+    const threadData = await Thread.findAll({
+      where: { channel_id: req.params.id },
+      include: [{ model: Channel }, { model: User }]
+    })
+    const threads = threadData.map((thread) => thread.get({ plain: true }))
+    // console.log(threadData)
+    console.log(threads)
+    res.render('allThreads', {
+      threads
+    })
 
-    res.render('addChannels', {
-      loggedIn: req.session.loggedIn
-    });
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err)
+    res.status(500).json(err)
   }
-});
+})
 module.exports = router;

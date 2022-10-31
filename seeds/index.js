@@ -1,9 +1,8 @@
 const seedUsers = require('./user-seeds');
-const seedMessages = require('./message-seed');
-const seedChannelTags = require('./channel-tag-seeds')
-// const seedComments = require('./comment-seeds');
-
 const seedChannels = require('./channel-seeds');
+const seedThreads = require('./thread-seed')
+const seedMessages = require('./message-seed');
+
 
 
 
@@ -15,18 +14,14 @@ const seedAll = async () => {
     await seedUsers();
     console.log('\n----- USERS SEEDED -----\n');
 
-
-    // await seedComments();
-    // console.log('\n----- COMMENTS SEEDED -----\n');
-
-
     await seedChannels();
     console.log('\n----- CHANNELS SEEDED -----\n')
+    await seedThreads();
+    console.log('\n----- THREADS SEEDED -----\n')
 
     await seedMessages()
     console.log('\n----- MESSAGES SEEDED -----\n');
-    await seedChannelTags()
-    console.log('\n----- channel tags SEEDED -----\n');
+
     process.exit(0);
 };
 

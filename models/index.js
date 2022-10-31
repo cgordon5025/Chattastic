@@ -7,24 +7,15 @@ const ChannelTag = require('./Channel-tags')
 //Post to be added in later//
 // const Post = require('./Post');
 
-User.belongsToMany(Channel, {
-  through: ChannelTag,
-  foreignKey: "user_id"
-})
 
-Channel.belongsToMany(User, {
-  through: ChannelTag,
-  foreignKey: "channel_id"
-})
+User.hasMany(Channel, {
+  foreignKey: 'user_id',
+});
 
-// User.hasMany(Channel, {
-//   foreignKey: 'user_id',
-// });
-
-// Channel.belongsTo(User, {
-//   foreignKey: 'user_id',
-//   onDelete: "SET NULL"
-// });
+Channel.belongsTo(User, {
+  foreignKey: 'user_id',
+  onDelete: "SET NULL"
+});
 
 User.hasMany(Thread, {
   foreignKey: 'user_id'

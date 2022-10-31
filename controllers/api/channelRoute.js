@@ -28,8 +28,11 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   // create a new tag
+  console.log(req.body)
   try {
-    const createdChannelData = await Channel.create(req.body);
+    const createdChannelData = await Channel.create({
+      title: req.body.title
+    });
     res.status(200).json(createdChannelData);
   } catch (err) {
     res.status(400).json(err);
