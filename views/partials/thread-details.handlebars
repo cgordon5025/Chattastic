@@ -1,6 +1,13 @@
 <li class="card m-3">
     <a href="/thread/{{id}}">
-        <p class="text-center">{{text_content}}</p>
+        <figure>
+            <blockquote class="blockquote">
+                <p>{{text_content}}</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                {{user.username}}
+            </figcaption>
+        </figure>
     </a>
 </li>
 
