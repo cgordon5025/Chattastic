@@ -13,7 +13,7 @@
 
 
 const pubnub = new PubNub({
-
+ 
     userId: document.getElementById("message").dataset.username
 });
 
