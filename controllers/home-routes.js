@@ -78,10 +78,13 @@ router.get('/channel/:id', async (req, res) => {
       include: [{ model: Channel }, { model: User }]
     })
     const threads = threadData.map((thread) => thread.get({ plain: true }))
+    const channelName = threads[0].channel.title;
+    console.log(channelName)
     // console.log(threadData)
     console.log(threads)
     res.render('allThreads', {
-      threads
+      threads,
+      channelName
     })
 
   } catch (err) {
@@ -89,4 +92,37 @@ router.get('/channel/:id', async (req, res) => {
     res.status(500).json(err)
   }
 })
+
+router.get('/thread/:id', async (req, res) => {
+  try {
+    const messageData = await Message.findAll({
+      where: { thread_id: req.params.id },
+      include: [{ model: Channel }, { model: User }, { model: Thread }]
+    })
+    const messages = messageData.map((message) => message.get({ plain: true }))
+    const channelName = messages[0].channel.title;
+    const threadInfo = messages[0].thread.text_content
+    const threadID = messages[0].thread.id
+    const threadPosterData = await Thread.findByPk(threadID, {
+      include: [{ model: User }]
+    })
+    const threadPosterRaw = threadPosterData.get({ plain: true })
+    const threadPoster = threadPosterRaw.user.username
+    // console.log(threadID)
+    // console.log(channelName)
+    // console.log(threadData)
+    // console.log(messages)
+    res.render('singleThread', {
+      messages,
+      channelName,
+      threadInfo,
+      threadPoster
+    })
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+})
+
 module.exports = router;

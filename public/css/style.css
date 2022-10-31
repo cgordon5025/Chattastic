@@ -1,9 +1,10 @@
 p {
     color: black
 }
-main {
+
+/* main {
     background-color: rgb(59, 57, 57);
-}
+} */
 
 #channelName {
     color: white;
@@ -11,7 +12,7 @@ main {
 
 .chatContainer {
     font-size: 16px;
-   
+
     width: 50%;
     display: flex;
     justify-content: flex-start;
@@ -37,7 +38,7 @@ main {
 
 .theirUsername {
     color: rgb(117, 5, 5);
-   margin: 5px;
+    margin: 5px;
 }
 
 .theirText {
@@ -46,9 +47,11 @@ main {
     margin: 5px;
 }
 
-#pikachu {
+#pikachu,
+#channelName {
     width: 100%;
     margin: auto;
+    background-color: rgb(59, 57, 57);
+
     /* background-color: rgb(59, 57, 57); */
 }
-

@@ -1,6 +1,15 @@
-<h1>{{Channel.title}}</h1>
+<h1 class="text-center">{{channelName}}</h1>
 <div>
     {{#each threads as |thread|}}
     {{>thread-details}}
     {{/each}}
 </div>
+
+<button id="newThead">Start a New Thread</button>
+<br>
+<br>
+<label for="newThreadTopic">What is the Topic?</label>
+<input id="newThreadTopic">
+<button id="submitThread">Submit</button>
+
+<script src="/js/addThread.js"></script>

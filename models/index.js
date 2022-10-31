@@ -53,5 +53,13 @@ Message.belongsTo(Thread, {
   onDelete: "SET NULL"
 })
 
+Channel.hasMany(Message, {
+  foreignKey: "channel_id"
+})
+Message.belongsTo(Channel, {
+  foreignKey: "channel_id",
+  onDelete: "SET NULL"
+})
+
 module.exports = { User, Channel, Thread, Message, ChannelTag };
 
