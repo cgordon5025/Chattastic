@@ -30,9 +30,14 @@ router.get("/thread/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  const body = req.body
+  console.log(body)
   // create a new tag
   try {
-    const createdThread = await Thread.create(req.body);
+    const createdThread = await Thread.create({
+      ...body
+    }
+    );
     res.status(200).json(createdThread);
   } catch (err) {
     res.status(400).json(err);

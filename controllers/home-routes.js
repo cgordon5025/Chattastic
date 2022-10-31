@@ -8,8 +8,10 @@ router.get('/', withAuth, async (req, res) => {
     const channelData = await Channel.findAll()
     const channels = channelData.map((channel) =>
       channel.get({ plain: true }))
+    const userID = req.session.userID
     res.render('homepage', {
       channels,
+      userID,
       loggedIn: req.session.loggedIn
     })
   } catch (err) {
@@ -67,9 +69,6 @@ router.get('/annoucements', async (req, res) => {
   }
 })
 
-router.get('/newForum', async (req, res) => {
-  res.render('newForum')
-})
 router.get('/channel/:id', async (req, res) => {
   console.log("going to threads")
   try {
@@ -79,12 +78,16 @@ router.get('/channel/:id', async (req, res) => {
     })
     const threads = threadData.map((thread) => thread.get({ plain: true }))
     const channelName = threads[0].channel.title;
+    const channelID = threads[0].channel.id;
+    const userID = req.session.userID
     console.log(channelName)
     // console.log(threadData)
     console.log(threads)
     res.render('allThreads', {
       threads,
-      channelName
+      channelName,
+      channelID,
+      userID
     })
 
   } catch (err) {
@@ -101,6 +104,7 @@ router.get('/thread/:id', async (req, res) => {
     })
     const messages = messageData.map((message) => message.get({ plain: true }))
     const channelName = messages[0].channel.title;
+    const channelID = messages[0].channel.id
     const threadInfo = messages[0].thread.text_content
     const threadID = messages[0].thread.id
     const threadPosterData = await Thread.findByPk(threadID, {
@@ -108,6 +112,8 @@ router.get('/thread/:id', async (req, res) => {
     })
     const threadPosterRaw = threadPosterData.get({ plain: true })
     const threadPoster = threadPosterRaw.user.username
+    const userID = req.session.userID
+    console.log(userID)
     // console.log(threadID)
     // console.log(channelName)
     // console.log(threadData)
@@ -116,7 +122,10 @@ router.get('/thread/:id', async (req, res) => {
       messages,
       channelName,
       threadInfo,
-      threadPoster
+      threadPoster,
+      threadID,
+      channelID,
+      userID
     })
 
   } catch (err) {

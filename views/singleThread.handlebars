@@ -1,5 +1,5 @@
-<h1 class="text-center">{{channelName}}</h1>
-<h2 class="text-center">{{threadInfo}}: {{threadPoster}}</h2>
+<h1 class="text-center" id="chName" data-channelID="{{channelID}}">{{channelName}}</h1>
+<h2 class="text-center" id="threadInfo" data-threadID="{{threadID}}">{{threadInfo}}: {{threadPoster}}</h2>
 
 <div>
     {{#each messages as |message|}}
@@ -7,7 +7,7 @@
     {{/each}}
 </div>
 
-<button id="newCommentBtn">Add a New Comment</button>
+<button data-userID="{{userID}}" id="newCommentBtn">Add a New Comment</button>
 <br>
 <br>
 <div style="display:none" id="commentContainer">
