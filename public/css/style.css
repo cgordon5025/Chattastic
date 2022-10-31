@@ -2,9 +2,9 @@ p {
     color: black
 }
 
-/* main {
+main {
     background-color: rgb(59, 57, 57);
-} */
+}
 
 #channelName {
     color: white;
@@ -62,4 +62,25 @@ input#message {
 
 button {
     width: 10%;
+}
+
+h2.page-title {
+    color: white;
+}
+
+label {
+    color: white;
+}
+
+nav.navbar.navbar-expand-lg{
+    background-color: rgb(59, 57, 57);
+    color: white;
+}
+
+a {
+    color: white;
+}
+
+h1 {
+    color: white;
 }
