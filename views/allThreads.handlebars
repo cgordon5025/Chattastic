@@ -1,15 +1,18 @@
-<h1 class="text-center">{{channelName}}</h1>
+<h1 class="text-center" id="chName" data-channelid="{{channelID}}">{{channelName}}</h1>
 <div>
     {{#each threads as |thread|}}
     {{>thread-details}}
     {{/each}}
 </div>
 
-<button id="newThead">Start a New Thread</button>
+<button data-userid="{{userID}}" id="newThead">Start a New Thread</button>
 <br>
 <br>
-<label for="newThreadTopic">What is the Topic?</label>
-<input id="newThreadTopic">
-<button id="submitThread">Submit</button>
+<div style="display:none" id="newThreadContainer">
+
+    <label for="newThreadTopic">What is the Topic?</label>
+    <input id="newThreadTopic">
+    <button id="submitThread">Submit</button>
+</div>
 
 <script src="/js/addThread.js"></script>

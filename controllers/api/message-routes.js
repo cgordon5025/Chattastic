@@ -27,31 +27,21 @@ router.get("/:id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-//localhost:3040/message
+//localhost:3040/api/messages
 router.post("/", async (req, res) => {
-  const body = req.body;
+  const body = req.body
   console.log(req.body)
   try {
     const createdMessage = await Message.create({
       ...body
     });
+    console.log(createdMessage)
     res.status(200).json(createdMessage);
   } catch (err) {
     res.status(400).json(err);
   }
 });
-// router.post("/", async (req, res) => {
-//   // create a new message
-//   try {
-//     const createdMessage = await Message.create({
-//       title: req.body.title,
-//       text: req.body.text
-//     });
-//     res.status(200).json(createdMessage);
-//   } catch (err) {
-//     res.status(400).json(err);
-//   }
-// });
+
 router.delete("/:id", async (req, res) => {
   // delete one message by its `id` value
   try {

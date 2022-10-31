@@ -4,4 +4,12 @@
     {{>channel-details}}
     {{/each}}
 </div>
-<a href="/newForum"><button id="newForum">Make a new Forum</button></a>
+<button data-userid="{{userID}}" id="newForum">Make a new Forum</button>
+<br>
+<div style="display:none" id="newForumContainer">
+    <label for="neForumTitle">New Forum</label>
+    <input id="newForumTitle">
+    <button id="submitForum">Submit</button>
+</div>
+
+<script src="/js/newforum.js"></script>
