@@ -7,7 +7,7 @@ const threadData = [
         channel_id: 1
     },
     {
-        text_content: "IM LOST PLS HALP",
+        text_content: "Any have good resources for mySQL debugging?",
         user_id: 2,
         channel_id: 1
     }

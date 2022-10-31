@@ -2,7 +2,7 @@ p {
     color: black
 }
 
-main {
+body {
     background-color: rgb(59, 57, 57);
 }
 
@@ -57,14 +57,15 @@ main {
 }
 
 input#message {
-    width: 90%;
+    width: 89%;
 }
 
 button {
     width: 10%;
 }
 
-h2.page-title {
+h2.page-title,
+#threadInfo {
     color: white;
 }
 
@@ -72,7 +73,7 @@ label {
     color: white;
 }
 
-nav.navbar.navbar-expand-lg{
+nav.navbar.navbar-expand-lg {
     background-color: rgb(59, 57, 57);
     color: white;
 }

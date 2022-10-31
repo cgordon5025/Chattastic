@@ -6,11 +6,11 @@ const channelData = [
      
     },
     {
-        title: "Lost Boiz",
+        title: "Cooking",
     
     },
     {
-        title:"Other General",
+        title:"Pets and Activities",
   
     }
 ];
