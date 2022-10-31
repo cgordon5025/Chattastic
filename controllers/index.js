@@ -7,7 +7,9 @@ const apiRoutes = require('./api')
 
 router.use('/api', apiRoutes)
 router.use('/', homeRoutes);
-
+router.get('/', async (req, res) => {
+    res.render('homepage')
+})
 
 
 module.exports = router;
