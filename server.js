@@ -1,7 +1,8 @@
 //lets call down out libraries
 const express = require('express');
-//the most up to date version is 6.0.6
-//the version in all classwork is 5.2.0
+const Models = require('./models')
+const Controllers = require('./controllers')
+
 const exphbs = require('express-handlebars');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
