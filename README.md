@@ -18,7 +18,7 @@ N/A
 
 ## Usage
 After signing up with a new account, the user can begin chatting with other users and posting announcements to the forum section. In the live chatroom, the user will be able to see their messages on the right and other users' messages on the left side of the page.
-
+![Mock-up image](mock-up.png)
 ## License
 N/A
 
