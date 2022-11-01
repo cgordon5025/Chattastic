@@ -18,7 +18,7 @@ N/A
 
 ## Usage
 After signing up with a new account, the user can begin chatting with other users and posting announcements to the forum section. In the live chatroom, the user will be able to see their messages on the right and other users' messages on the left side of the page.
-
+![Mock-up image](mock-up.png)
 ## License
 N/A
 
@@ -29,4 +29,5 @@ ConnorMurphy9, cgordon5025, Afarrell95, AbigailLeConte, NathDCoder
 
 connormurphy012@gmail.com, cgordon5025@gmail.com, farrella95@gmail.com, aeleconte21@gmail.com, themusicemperor@gmail.com
 
-
+## Link to Application
+[Link to Application](https://chattastic-rat.herokuapp.com/login)
